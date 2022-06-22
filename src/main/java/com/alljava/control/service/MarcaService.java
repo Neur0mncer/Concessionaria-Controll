@@ -57,16 +57,12 @@ public class MarcaService {
     }
 
     private MarcaDTO converterEntitiestoDTO(Marca marca){
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
         MarcaDTO marcaDTO = new MarcaDTO();
         marcaDTO = modelMapper.map(marca, MarcaDTO.class);
         return marcaDTO;
     }
 
     private Marca converterDTOtoEntities(MarcaDTO marcaDTO){
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
         Marca marca = new Marca();
         marca = modelMapper.map(marcaDTO, Marca.class);
         return marca;

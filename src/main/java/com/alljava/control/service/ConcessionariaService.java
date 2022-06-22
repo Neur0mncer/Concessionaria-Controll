@@ -4,8 +4,6 @@ import com.alljava.control.DTO.ConcessionariaDTO;
 import com.alljava.control.entities.Concessionaria;
 import com.alljava.control.repository.ConcessionariaRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -54,18 +52,12 @@ public class ConcessionariaService {
     }
 
     private ConcessionariaDTO converterEntitiestoDTO(Concessionaria concessionaria){
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
-        ConcessionariaDTO concessionariaDTO = new ConcessionariaDTO();
-        concessionariaDTO = modelMapper.map(concessionaria, ConcessionariaDTO.class);
+        ConcessionariaDTO concessionariaDTO = modelMapper.map(concessionaria, ConcessionariaDTO.class);
         return concessionariaDTO;
     }
 
     private Concessionaria converterDTOtoEntities(ConcessionariaDTO concessionariaDTO){
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
-        Concessionaria concessionaria = new Concessionaria();
-        concessionaria = modelMapper.map(concessionariaDTO, Concessionaria.class);
+        Concessionaria concessionaria = modelMapper.map(concessionariaDTO, Concessionaria.class);
         return concessionaria;
     }
 }
