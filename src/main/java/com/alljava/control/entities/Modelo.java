@@ -1,26 +1,25 @@
 package com.alljava.control.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
-import java.util.List;
 
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 @Entity
-@Table(name = "tb_marca")
-public class Marca {
+@Table(name = "tb_modelo")
+public class Modelo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE) private long id;
     private String descricao;
-    @JsonIgnore
-    @OneToMany(mappedBy = "marca",fetch = FetchType.LAZY)
-    private List<Modelo> modelos;
-
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
 }

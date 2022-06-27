@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Concessionaria implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE) private long id;
 
     @Column (name = "name", nullable = false)

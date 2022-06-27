@@ -1,9 +1,8 @@
 package com.alljava.control.controllers;
 
 import com.alljava.control.DTO.MarcaDTO;
-import com.alljava.control.entities.Concessionaria;
+import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Marca;
-import com.alljava.control.repository.MarcaRepository;
 import com.alljava.control.service.MarcaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class MarcaController {
     @GetMapping(value = "/{id}")
     public MarcaDTO findById(@PathVariable Long id){
         return marcaService.buscarId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Concessionaria Não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca Não encontrada"));
     }
 
     @DeleteMapping(value = "/{id}")
@@ -45,7 +44,7 @@ public class MarcaController {
                 .map(marca -> {
                     marcaService.removerId(id);
                     return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Concessionaria Não encontrada"));
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca Não encontrada"));
 
     }
 
@@ -53,7 +52,5 @@ public class MarcaController {
     public void update(@PathVariable Long id, @RequestBody MarcaDTO marca){
       marcaService.update(id, marca);
     }
-
-
 
 }

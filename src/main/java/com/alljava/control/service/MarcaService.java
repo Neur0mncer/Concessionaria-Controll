@@ -1,17 +1,14 @@
 package com.alljava.control.service;
 
-import com.alljava.control.DTO.ConcessionariaDTO;
 import com.alljava.control.DTO.MarcaDTO;
-import com.alljava.control.entities.Concessionaria;
+import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Marca;
+import com.alljava.control.entities.Modelo;
 import com.alljava.control.repository.MarcaRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -36,7 +33,7 @@ public class MarcaService {
                     modelMapper.map(marcaDTO, marcaBase);
                     marcaRepository.save(marcaBase);
                     return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Concessionaria Não encontrada"));
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca Não encontrada"));
 
     }
 
@@ -52,19 +49,18 @@ public class MarcaService {
                 .map(this::converterEntitiestoDTO);
     }
 
+
     public void removerId(Long id){
         marcaRepository.deleteById(id);
     }
 
     private MarcaDTO converterEntitiestoDTO(Marca marca){
-        MarcaDTO marcaDTO = new MarcaDTO();
-        marcaDTO = modelMapper.map(marca, MarcaDTO.class);
+       MarcaDTO marcaDTO = modelMapper.map(marca, MarcaDTO.class);
         return marcaDTO;
     }
 
     private Marca converterDTOtoEntities(MarcaDTO marcaDTO){
-        Marca marca = new Marca();
-        marca = modelMapper.map(marcaDTO, Marca.class);
+        Marca marca = modelMapper.map(marcaDTO, Marca.class);
         return marca;
     }
 }
