@@ -38,6 +38,12 @@ public class ModeloController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo Não encontrado"));
     }
 
+    @GetMapping(value = "/listaMarca/{id}")
+    public List<ModeloDTO> listaModeloMarca(@PathVariable Marca id){
+        return modeloService.listaModeloMarca(id);
+
+    }
+
     public void deleteById(@PathVariable Long id){
         modeloService.buscarId(id)
                 .map(modelo -> {

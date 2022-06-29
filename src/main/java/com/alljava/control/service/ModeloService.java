@@ -34,7 +34,12 @@ public class ModeloService {
                 .map(this::converterEntitiestoDTO)
                 .collect(Collectors.toList());
     }
-
+    public List<ModeloDTO> listaModeloMarca(Marca marca) {
+        return marca.getModelos()
+                .stream()
+                .map(this::converterEntitiestoDTO)
+                .collect(Collectors.toList());
+    }
     public Optional<ModeloDTO> buscarId(Long id){
         return modeloRepository.findById(id)
                 .map(this::converterEntitiestoDTO);
