@@ -22,8 +22,8 @@ public class ConcessionariaController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ConcessionariaDTO insert(@RequestBody Concessionaria concessionaria){
-        return concessionariaService.salvar(concessionaria);
+    public Concessionaria insert(@RequestBody ConcessionariaDTO concessionariaDTO){
+        return concessionariaService.salvar(concessionariaDTO);
     }
 
     @GetMapping

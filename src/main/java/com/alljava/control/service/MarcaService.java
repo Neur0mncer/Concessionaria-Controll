@@ -24,8 +24,8 @@ public class MarcaService {
     private ModelMapper modelMapper;
 
 
-    public MarcaDTO salvar(Marca marca){
-        return converterEntitiestoDTO(marcaRepository.save(marca));
+    public Marca salvar(MarcaDTO marcaDTO){
+        return marcaRepository.save(marcaDTO.transformaParaObjeto());
     }
     public void update(Long id, MarcaDTO marcaDTO){
         marcaRepository.findById(id)
@@ -60,8 +60,4 @@ public class MarcaService {
         return marcaDTO;
     }
 
-    private Marca converterDTOtoEntities(MarcaDTO marcaDTO){
-        Marca marca = modelMapper.map(marcaDTO, Marca.class);
-        return marca;
-    }
 }

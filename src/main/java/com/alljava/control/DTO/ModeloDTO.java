@@ -22,4 +22,8 @@ public class ModeloDTO {
         descricao = modelo.getDescricao();
         marca = modelo.getMarca();
     }
+
+    public Modelo transformaParaObjeto(){
+        return new Modelo(id, descricao, marca);
+    }
 }

@@ -1,5 +1,6 @@
 package com.alljava.control.controllers;
 
+import com.alljava.control.DTO.MarcaDTO;
 import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Marca;
 import com.alljava.control.entities.Modelo;
@@ -23,8 +24,8 @@ public class ModeloController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ModeloDTO insert(@RequestBody Modelo modelo){
-        return modeloService.salvar(modelo);
+    public Modelo insert(@RequestBody ModeloDTO modeloDTO){
+        return modeloService.salvar(modeloDTO);
     }
 
     @GetMapping
@@ -39,7 +40,7 @@ public class ModeloController {
     }
 
     @GetMapping(value = "/listaMarca/{id}")
-    public List<ModeloDTO> listaModeloMarca(@PathVariable Marca id){
+    public List<Modelo> listaModeloMarca(@PathVariable MarcaDTO id){
         return modeloService.listaModeloMarca(id);
 
     }

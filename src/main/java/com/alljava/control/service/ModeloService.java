@@ -1,5 +1,6 @@
 package com.alljava.control.service;
 
+import com.alljava.control.DTO.MarcaDTO;
 import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Marca;
 import com.alljava.control.entities.Modelo;
@@ -10,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,8 +25,8 @@ public class ModeloService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ModeloDTO salvar(Modelo modelo){
-        return converterEntitiestoDTO(modeloRepository.save(modelo));
+    public Modelo salvar(ModeloDTO modeloDTO){
+        return modeloRepository.save(modeloDTO.transformaParaObjeto());
     }
 
     public List<ModeloDTO> listaModelo(){
@@ -34,10 +35,9 @@ public class ModeloService {
                 .map(this::converterEntitiestoDTO)
                 .collect(Collectors.toList());
     }
-    public List<ModeloDTO> listaModeloMarca(Marca marca) {
-        return marca.getModelos()
+    public List<Modelo> listaModeloMarca(MarcaDTO marca) {
+        return marca.transformaParaObjeto().getModelos()
                 .stream()
-                .map(this::converterEntitiestoDTO)
                 .collect(Collectors.toList());
     }
     public Optional<ModeloDTO> buscarId(Long id){

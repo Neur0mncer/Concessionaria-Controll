@@ -22,8 +22,8 @@ public class ConcessionariaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ConcessionariaDTO salvar(Concessionaria concessionaria){
-        return converterEntitiestoDTO(concessionariaRepository.save(concessionaria));
+    public Concessionaria salvar(ConcessionariaDTO concessionariaDTO){
+        return concessionariaRepository.save(concessionariaDTO.transformaParaObjeto());
     }
 
     public void update(Long id, ConcessionariaDTO concessionaria){
@@ -56,8 +56,4 @@ public class ConcessionariaService {
         return concessionariaDTO;
     }
 
-    private Concessionaria converterDTOtoEntities(ConcessionariaDTO concessionariaDTO){
-        Concessionaria concessionaria = modelMapper.map(concessionariaDTO, Concessionaria.class);
-        return concessionaria;
-    }
 }

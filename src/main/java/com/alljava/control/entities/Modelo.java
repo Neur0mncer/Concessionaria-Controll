@@ -1,14 +1,12 @@
 package com.alljava.control.entities;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity

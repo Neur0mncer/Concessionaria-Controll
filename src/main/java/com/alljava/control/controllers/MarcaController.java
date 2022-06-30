@@ -23,8 +23,8 @@ public class MarcaController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public MarcaDTO insert(@RequestBody Marca marca){
-        return marcaService.salvar(marca);
+    public Marca insert(@RequestBody MarcaDTO marcaDTO){
+        return marcaService.salvar(marcaDTO);
     }
 
     @GetMapping

@@ -1,13 +1,14 @@
 package com.alljava.control.DTO;
 
 import com.alljava.control.entities.Marca;
+import com.alljava.control.entities.Modelo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Getter
 @Setter
@@ -16,11 +17,16 @@ import java.util.stream.Collectors;
 public class MarcaDTO {
     private long id;
     private String descricao;
-    private List<ModeloDTO> modelos;
+    private List<Modelo> modelos;
 
     public MarcaDTO(Marca marca) {
         id = marca.getId();
         descricao = marca.getDescricao();
     }
+
+    public Marca transformaParaObjeto(){
+        return new Marca(id, descricao, modelos);
+    }
+
 
 }
