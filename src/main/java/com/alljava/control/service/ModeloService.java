@@ -1,9 +1,9 @@
 package com.alljava.control.service;
 
-import com.alljava.control.DTO.MarcaDTO;
 import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Marca;
 import com.alljava.control.entities.Modelo;
+import com.alljava.control.repository.MarcaRepository;
 import com.alljava.control.repository.ModeloRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,16 @@ public class ModeloService {
 
     @Autowired
     private ModeloRepository modeloRepository;
+    @Autowired
+    private MarcaRepository marcaRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public Modelo salvar(ModeloDTO modeloDTO){
-        return modeloRepository.save(modeloDTO.transformaParaObjeto());
+    public ModeloDTO salvar(ModeloDTO modeloDTO){
+        Modelo entity = modeloRepository.save(modeloDTO.transformaParaObjeto());
+        ModeloDTO dto = new ModeloDTO(entity);
+        return dto;
     }
 
     public List<ModeloDTO> listaModelo(){
@@ -35,10 +39,8 @@ public class ModeloService {
                 .map(this::converterEntitiestoDTO)
                 .collect(Collectors.toList());
     }
-    public List<Modelo> listaModeloMarca(MarcaDTO marca) {
-        return marca.transformaParaObjeto().getModelos()
-                .stream()
-                .collect(Collectors.toList());
+    public List<ModeloDTO> listaModeloMarca(Long id) {
+        return marcaRepository.findModelosByMarcaId(id);
     }
     public Optional<ModeloDTO> buscarId(Long id){
         return modeloRepository.findById(id)
@@ -61,10 +63,5 @@ public class ModeloService {
     private ModeloDTO converterEntitiestoDTO(Modelo modelo){
         ModeloDTO modeloDTO = modelMapper.map(modelo, ModeloDTO.class);
         return modeloDTO;
-    }
-
-    private Modelo converterDTOtoEntities(ModeloDTO modeloDTO){
-        Modelo modelo = modelMapper.map(modeloDTO, Modelo.class);
-        return modelo;
     }
 }
