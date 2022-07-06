@@ -41,7 +41,6 @@ public class ModeloController {
     @GetMapping(value = "/listaMarca/{id}")
     public List<ModeloDTO> listaModeloMarca(@PathVariable Long id){
         return modeloService.listaModeloMarca(id);
-
     }
 
     public void deleteById(@PathVariable Long id){

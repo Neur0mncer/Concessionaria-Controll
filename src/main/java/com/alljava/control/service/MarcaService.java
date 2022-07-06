@@ -24,8 +24,10 @@ public class MarcaService {
     private ModelMapper modelMapper;
 
 
-    public Marca salvar(MarcaDTO marcaDTO){
-        return marcaRepository.save(marcaDTO.transformaParaObjeto());
+    public MarcaDTO salvar(MarcaDTO marcaDTO){
+        Marca entity = marcaRepository.save(marcaDTO.transformaParaObjeto());
+        MarcaDTO dto = new MarcaDTO(entity);
+        return dto;
     }
     public void update(Long id, MarcaDTO marcaDTO){
         marcaRepository.findById(id)

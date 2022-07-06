@@ -1,7 +1,9 @@
 package com.alljava.control.service;
 
 import com.alljava.control.DTO.ConcessionariaDTO;
+import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Concessionaria;
+import com.alljava.control.entities.Modelo;
 import com.alljava.control.repository.ConcessionariaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,10 @@ public class ConcessionariaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Concessionaria salvar(ConcessionariaDTO concessionariaDTO){
-        return concessionariaRepository.save(concessionariaDTO.transformaParaObjeto());
+    public ConcessionariaDTO salvar(ConcessionariaDTO concessionariaDTO){
+        Concessionaria entity = concessionariaRepository.save(concessionariaDTO.transformaParaObjeto());
+        ConcessionariaDTO dto = new ConcessionariaDTO(entity);
+        return dto;
     }
 
     public void update(Long id, ConcessionariaDTO concessionaria){
