@@ -1,7 +1,6 @@
 package com.alljava.control.controllers;
 
 import com.alljava.control.DTO.ConcessionariaDTO;
-import com.alljava.control.entities.Concessionaria;
 import com.alljava.control.service.ConcessionariaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/concessionaria")

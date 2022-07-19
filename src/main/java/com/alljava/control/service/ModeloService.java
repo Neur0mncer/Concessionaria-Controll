@@ -28,8 +28,11 @@ public class ModeloService {
     private ModelMapper modelMapper;
 
     public ModeloDTO salvar(ModeloDTO modeloDTO){
-        Modelo entity = modeloRepository.save(modeloDTO.transformaParaObjeto());
-        ModeloDTO dto = new ModeloDTO(entity);
+        Modelo entity = modelMapper.map(modeloDTO, Modelo.class);
+        Optional<Marca> marca = marcaRepository.findById(modeloDTO.getMarca().getId());
+        entity.setMarca(marca.get());
+        Modelo entitySave = modeloRepository.save(entity);
+        ModeloDTO dto = modelMapper.map(entitySave, ModeloDTO.class);
         return dto;
     }
 
@@ -40,7 +43,10 @@ public class ModeloService {
                 .collect(Collectors.toList());
     }
     public List<ModeloDTO> listaModeloMarca(Long id) {
-        return marcaRepository.findModelosByMarcaId(id);
+        return marcaRepository.findModelosByMarcaId(id)
+                .stream()
+                .map(this::converterEntitiestoDTO)
+                .collect(Collectors.toList());
     }
     public Optional<ModeloDTO> buscarId(Long id){
         return modeloRepository.findById(id)
@@ -64,4 +70,7 @@ public class ModeloService {
         ModeloDTO modeloDTO = modelMapper.map(modelo, ModeloDTO.class);
         return modeloDTO;
     }
+
+
+
 }

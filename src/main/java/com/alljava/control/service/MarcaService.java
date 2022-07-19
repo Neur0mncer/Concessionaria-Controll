@@ -25,8 +25,11 @@ public class MarcaService {
 
 
     public MarcaDTO salvar(MarcaDTO marcaDTO){
-        Marca entity = marcaRepository.save(marcaDTO.transformaParaObjeto());
-        MarcaDTO dto = new MarcaDTO(entity);
+        Marca entity = modelMapper.map(marcaDTO, Marca.class);
+        List<Modelo> modelos = marcaRepository.findModelosByMarcaId(marcaDTO.getId());
+        entity.setModelos(modelos);
+        Marca entitySave = marcaRepository.save(entity);
+        MarcaDTO dto = modelMapper.map(entitySave, MarcaDTO.class);
         return dto;
     }
     public void update(Long id, MarcaDTO marcaDTO){

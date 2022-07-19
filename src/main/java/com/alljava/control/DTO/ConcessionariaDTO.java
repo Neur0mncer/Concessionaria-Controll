@@ -1,7 +1,6 @@
 package com.alljava.control.DTO;
 
 import com.alljava.control.entities.Concessionaria;
-import com.alljava.control.entities.Marca;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -16,6 +16,6 @@ public interface MarcaRepository extends JpaRepository<Marca, Long> {
 
 
     @Query(value = "SELECT u FROM Modelo u WHERE u.marca.id = ?1")
-    List<ModeloDTO> findModelosByMarcaId(Long marca);
+    List<Modelo> findModelosByMarcaId(Long marca);
 
 }

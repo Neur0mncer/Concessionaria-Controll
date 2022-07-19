@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ControlApplication {
-
 	@Bean
 	public ModelMapper modelMapper(){
 		ModelMapper modelMapper = new ModelMapper();
@@ -16,7 +15,6 @@ public class ControlApplication {
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		return modelMapper;
 	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(ControlApplication.class, args);
 	}

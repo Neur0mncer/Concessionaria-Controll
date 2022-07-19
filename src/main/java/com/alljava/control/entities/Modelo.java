@@ -1,7 +1,9 @@
 package com.alljava.control.entities;
 
+import com.alljava.control.DTO.MarcaDTO;
+import com.alljava.control.DTO.ModeloDTO;
 import lombok.*;
-import org.springframework.context.annotation.Bean;
+
 
 import javax.persistence.*;
 
@@ -20,4 +22,5 @@ public class Modelo {
     @ManyToOne
     @JoinColumn(name = "marca_id")
     private Marca marca;
+
 }

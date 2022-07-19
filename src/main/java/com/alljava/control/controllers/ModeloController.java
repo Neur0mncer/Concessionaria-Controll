@@ -1,8 +1,6 @@
 package com.alljava.control.controllers;
 
-import com.alljava.control.DTO.MarcaDTO;
 import com.alljava.control.DTO.ModeloDTO;
-import com.alljava.control.entities.Modelo;
 import com.alljava.control.service.ModeloService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,7 @@ public class ModeloController {
         return modeloService.listaModeloMarca(id);
     }
 
+    @DeleteMapping(value = "/{id}")
     public void deleteById(@PathVariable Long id){
         modeloService.buscarId(id)
                 .map(modelo -> {
@@ -53,6 +52,7 @@ public class ModeloController {
 
     @PutMapping(value = "/{id}")
     public void update(@PathVariable Long id, @RequestBody ModeloDTO modelo){
+
         modeloService.update(id,modelo);
     }
 
