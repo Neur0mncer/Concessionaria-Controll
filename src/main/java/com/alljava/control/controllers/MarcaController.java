@@ -5,10 +5,15 @@ import com.alljava.control.service.MarcaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/marca")
@@ -21,7 +26,7 @@ public class MarcaController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public MarcaDTO insert(@RequestBody MarcaDTO marcaDTO){
+    public MarcaDTO insert(@RequestBody @Valid MarcaDTO marcaDTO){
         return marcaService.salvar(marcaDTO);
     }
 
@@ -49,5 +54,17 @@ public class MarcaController {
     @PutMapping(value = "/{id}")
     public void update(@PathVariable Long id, @RequestBody MarcaDTO marca){
       marcaService.update(id, marca);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 }

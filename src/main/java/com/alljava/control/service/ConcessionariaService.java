@@ -1,9 +1,7 @@
 package com.alljava.control.service;
 
 import com.alljava.control.DTO.ConcessionariaDTO;
-import com.alljava.control.DTO.ModeloDTO;
 import com.alljava.control.entities.Concessionaria;
-import com.alljava.control.entities.Modelo;
 import com.alljava.control.repository.ConcessionariaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,8 +24,9 @@ public class ConcessionariaService {
     private ModelMapper modelMapper;
 
     public ConcessionariaDTO salvar(ConcessionariaDTO concessionariaDTO){
-        Concessionaria entity = concessionariaRepository.save(concessionariaDTO.transformaParaObjeto());
-        ConcessionariaDTO dto = new ConcessionariaDTO(entity);
+        Concessionaria entity = modelMapper.map(concessionariaDTO, Concessionaria.class);
+        Concessionaria entitySave = concessionariaRepository.save(entity);
+        ConcessionariaDTO dto = modelMapper.map(entitySave, ConcessionariaDTO.class);
         return dto;
     }
 
@@ -47,8 +47,9 @@ public class ConcessionariaService {
     }
 
     public Optional<ConcessionariaDTO> buscarId(Long id){
-        return concessionariaRepository.findById(id)
-                .map(this::converterEntitiestoDTO);
+        return Optional.ofNullable(concessionariaRepository.findById(id)
+                .map(this::converterEntitiestoDTO)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Concessionaria Não encontrada")));
     }
 
     public void removerId(Long id){

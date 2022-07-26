@@ -1,8 +1,11 @@
 package com.alljava.control.entities;
 
+import com.alljava.control.validation.constrainst.Telefone;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,14 +18,16 @@ public class Concessionaria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE) private long id;
-
-    @Column (name = "name", nullable = false)
+    @NotBlank(message = "Este campo é obrigatório")
+    @Size(max = 100)
     private String nome;
-    @Column (name = "cidade")
+    @NotBlank(message = "Este campo é obrigatório")
+    @Size(max = 100)
     private String cidade;
-    @Column (name = "telefone")
+    @NotBlank(message = "Este campo é obrigatório")
+    @Telefone
     private String telefone;
-    @Column (name = "email")
+    @Nullable
+    @Email
     private String email;
-
 }

@@ -2,10 +2,15 @@ package com.alljava.control.entities;
 
 import com.alljava.control.DTO.MarcaDTO;
 import com.alljava.control.DTO.ModeloDTO;
+import com.alljava.control.validation.constrainst.MarcaV;
 import lombok.*;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,9 +23,12 @@ public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE) private long id;
+    @NotBlank(message = "Este campo é obrigatório")
+    @Size(max = 100)
     private String descricao;
     @ManyToOne
     @JoinColumn(name = "marca_id")
+    @MarcaV
     private Marca marca;
 
 }

@@ -1,14 +1,14 @@
 package com.alljava.control.DTO;
 
-import com.alljava.control.entities.Marca;
-import com.alljava.control.entities.Modelo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alljava.control.validation.constrainst.MarcaV;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Setter
 @Getter
@@ -17,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ModeloDTO {
 
     private long id;
+    @NotBlank(message = "Este campo é obrigatório")
+    @Size(max = 100)
     private String descricao;
+    @MarcaV
     private MarcaDTO marca;
 }
 

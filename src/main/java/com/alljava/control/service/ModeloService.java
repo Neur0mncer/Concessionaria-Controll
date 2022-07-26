@@ -49,8 +49,9 @@ public class ModeloService {
                 .collect(Collectors.toList());
     }
     public Optional<ModeloDTO> buscarId(Long id){
-        return modeloRepository.findById(id)
-                .map(this::converterEntitiestoDTO);
+        return Optional.ofNullable(modeloRepository.findById(id)
+                .map(this::converterEntitiestoDTO)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca Não encontrada")));
     }
 
     public void removerId(Long id){
