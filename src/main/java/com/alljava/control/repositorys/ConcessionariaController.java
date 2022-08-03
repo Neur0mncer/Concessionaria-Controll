@@ -1,7 +1,7 @@
-package com.alljava.control.controllers;
+package com.alljava.control.repositorys;
 
-import com.alljava.control.DTO.ModeloDTO;
-import com.alljava.control.service.ModeloService;
+import com.alljava.control.DTO.ConcessionariaDTO;
+import com.alljava.control.service.ConcessionariaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,51 +15,48 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
-@RequestMapping(value = "/modelo")
-public class ModeloController {
+@RequestMapping(value = "/concessionaria")
+public class ConcessionariaController {
 
     @Autowired
-    private ModeloService modeloService;
+   private ConcessionariaService concessionariaService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ModeloDTO insert(@RequestBody @Valid ModeloDTO modeloDTO){
-        return modeloService.salvar(modeloDTO);
+    public ConcessionariaDTO insert(@RequestBody @Valid ConcessionariaDTO concessionariaDTO){
+        return concessionariaService.salvar(concessionariaDTO);
     }
 
     @GetMapping
-    public List<ModeloDTO> findAll(){
-        return modeloService.listaModelo();
+    public List<ConcessionariaDTO> findAll(){
+        return concessionariaService.listaConcessionaria();
     }
 
     @GetMapping(value = "/{id}")
-    public ModeloDTO findById(@PathVariable Long id){
-       return modeloService.buscarId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo Não encontrado"));
-    }
-
-    @GetMapping(value = "/listaMarca/{id}")
-    public List<ModeloDTO> listaModeloMarca(@PathVariable Long id){
-        return modeloService.listaModeloMarca(id);
+    public ConcessionariaDTO findById(@PathVariable Long id){
+        return concessionariaService.buscarId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Concessionaria Não encontrada"));
     }
 
     @DeleteMapping(value = "/{id}")
     public void deleteById(@PathVariable Long id){
-        modeloService.buscarId(id)
-                .map(modelo -> {
-                    modeloService.removerId(id);
+        concessionariaService.buscarId(id)
+                .map(concessionariaDTO -> {
+                   concessionariaService.removerId(id);
                     return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo Não encontrado"));
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Concessionaria Não encontrada"));
+
     }
 
     @PutMapping(value = "/{id}")
-    public void update(@PathVariable Long id, @RequestBody ModeloDTO modelo){
-
-        modeloService.update(id,modelo);
+    public void update(@PathVariable Long id, @RequestBody ConcessionariaDTO concessionaria){
+        concessionariaService.update(id, concessionaria);
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -72,3 +69,4 @@ public class ModeloController {
         return errors;
     }
 }
+

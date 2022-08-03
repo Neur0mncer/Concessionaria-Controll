@@ -1,7 +1,7 @@
-package com.alljava.control.controllers;
+package com.alljava.control.repositorys;
 
-import com.alljava.control.DTO.MarcaDTO;
-import com.alljava.control.service.MarcaService;
+import com.alljava.control.DTO.ModeloDTO;
+import com.alljava.control.service.ModeloService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,46 +16,50 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/marca")
-public class MarcaController {
+@RequestMapping(value = "/modelo")
+public class ModeloController {
 
     @Autowired
-    private MarcaService marcaService;
+    private ModeloService modeloService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping
-    public MarcaDTO insert(@RequestBody @Valid MarcaDTO marcaDTO){
-        return marcaService.salvar(marcaDTO);
+    public ModeloDTO insert(@RequestBody @Valid ModeloDTO modeloDTO){
+        return modeloService.salvar(modeloDTO);
     }
 
     @GetMapping
-    public List<MarcaDTO> findAll(){
-        return marcaService.listaMarca();
+    public List<ModeloDTO> findAll(){
+        return modeloService.listaModelo();
     }
 
     @GetMapping(value = "/{id}")
-    public MarcaDTO findById(@PathVariable Long id){
-        return marcaService.buscarId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca Não encontrada"));
+    public ModeloDTO findById(@PathVariable Long id){
+       return modeloService.buscarId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo Não encontrado"));
     }
 
+    @GetMapping(value = "/listaMarca/{id}")
+    public List<ModeloDTO> listaModeloMarca(@PathVariable Long id){
+        return modeloService.listaModeloMarca(id);
+    }
 
     @DeleteMapping(value = "/{id}")
     public void deleteById(@PathVariable Long id){
-        marcaService.buscarId(id)
-                .map(marcaDTO -> {
-                    marcaService.removerId(id);
+        modeloService.buscarId(id)
+                .map(modelo -> {
+                    modeloService.removerId(id);
                     return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca Não encontrada"));
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo Não encontrado"));
     }
 
     @PutMapping(value = "/{id}")
-    public void update(@PathVariable Long id, @RequestBody MarcaDTO marca){
-      marcaService.update(id, marca);
-    }
+    public void update(@PathVariable Long id, @RequestBody ModeloDTO modelo){
 
+        modeloService.update(id,modelo);
+    }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

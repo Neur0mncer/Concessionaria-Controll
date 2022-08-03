@@ -1,15 +1,12 @@
 package com.alljava.control.entities;
 
-import com.alljava.control.DTO.MarcaDTO;
-import com.alljava.control.DTO.ModeloDTO;
+import com.alljava.control.validation.constrainst.MarcaDTOV;
 import com.alljava.control.validation.constrainst.MarcaV;
 import lombok.*;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
