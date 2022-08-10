@@ -1,4 +1,4 @@
-package com.alljava.control.repositorys;
+package com.alljava.control.controller;
 
 import com.alljava.control.DTO.ConcessionariaDTO;
 import com.alljava.control.service.ConcessionariaService;

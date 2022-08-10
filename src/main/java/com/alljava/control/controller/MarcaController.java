@@ -1,4 +1,4 @@
-package com.alljava.control.repositorys;
+package com.alljava.control.controller;
 
 import com.alljava.control.DTO.MarcaDTO;
 import com.alljava.control.service.MarcaService;
