@@ -18,7 +18,7 @@ class MarcaRepositoryTest {
     private ModelMapper modelMapper;
 
     @Test
-    void verificarSePossuiIdEDescricaoNaoNulaOuVazia() {
+    void salvarMarcaComSucesso() {
         Marca marca = new Marca();
         marca.setDescricao("Chevrolet");
         marcaRepository.save(marca);
@@ -27,14 +27,12 @@ class MarcaRepositoryTest {
         assertFalse(marca.getDescricao() == " ");
     }
      @Test
-    void verificarSeEstaAtualizando(){
+    void atualizarMarcaComSucesso(){
          Marca marca = new Marca();
-         Marca marca1 = new Marca();
          marca.setDescricao("Chevrolet");
-         marca1.setDescricao("Peugeot");
          marcaRepository.save(marca);
-         modelMapper.map(marca1, marca);
+         marca.setDescricao("Fiat");
          marcaRepository.save(marca);
-         assertTrue(marca.getDescricao() == "Peugeot");
+         assertTrue(marca.getDescricao().equals("Fiat"));
      }
 }

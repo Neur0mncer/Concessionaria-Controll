@@ -17,7 +17,7 @@ class ConcessionariaRepositoryTest {
     ModelMapper modelMapper;
 
     @Test
-    void verificarSePossuiIdEseOsCamposSãoNulosOuVazios() {
+    void salvarConcessionariaComSucesso() {
         Concessionaria concessionaria = new Concessionaria();
         concessionaria.setNome("Peças Mendes");
         concessionaria.setCidade("Belo Horizonte");
@@ -35,25 +35,22 @@ class ConcessionariaRepositoryTest {
     }
 
     @Test
-    void verificarSeEstaAtualizando() {
+    void atualizarConcessionariaComSucesso() {
         Concessionaria concessionaria = new Concessionaria();
-        Concessionaria concessionaria1 = new Concessionaria();
-        concessionaria1.setNome("Peças Mendes");
-        concessionaria1.setCidade("Belo Horizonte");
-        concessionaria1.setTelefone("933778996");
-        concessionaria1.setEmail("pecasmendes@gmail.com");
         concessionaria.setNome("AutoPeças");
         concessionaria.setCidade("São Paulo");
         concessionaria.setTelefone("986773455");
         concessionaria.setEmail("autopeças@gmail.com");
         concessionariaRepository.save(concessionaria);
-        modelMapper.map(concessionaria1, concessionaria);
-        assertTrue(concessionaria.getNome() == "Peças Mendes");
-        assertTrue(concessionaria.getCidade() == "Belo Horizonte");
-        assertTrue(concessionaria.getTelefone() == "933778996");
-        assertTrue(concessionaria.getEmail() == "pecasmendes@gmail.com");
-
-
+        concessionaria.setNome("Peças Mendes");
+        concessionaria.setCidade("Belo Horizonte");
+        concessionaria.setTelefone("933778996");
+        concessionaria.setEmail("pecasmendes@gmail.com");
+        concessionariaRepository.save(concessionaria);
+        assertTrue(concessionaria.getNome().equals("Peças Mendes"));
+        assertTrue(concessionaria.getCidade().equals("Belo Horizonte"));
+        assertTrue(concessionaria.getTelefone().equals("933778996"));
+        assertTrue(concessionaria.getEmail().equals("pecasmendes@gmail.com"));
     }
 
 }
