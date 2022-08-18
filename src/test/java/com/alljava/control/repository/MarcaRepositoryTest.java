@@ -24,7 +24,7 @@ class MarcaRepositoryTest {
         marcaRepository.save(marca);
         assertNotNull(marca.getId());
         assertNotNull(marca.getDescricao());
-        assertFalse(marca.getDescricao() == " ");
+        assertFalse(marca.getDescricao().equals(" "));
     }
      @Test
     void atualizarMarcaComSucesso(){

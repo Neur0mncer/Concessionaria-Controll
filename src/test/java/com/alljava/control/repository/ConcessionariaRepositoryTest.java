@@ -28,10 +28,10 @@ class ConcessionariaRepositoryTest {
         assertNotNull(concessionaria.getNome());
         assertNotNull(concessionaria.getCidade());
         assertNotNull(concessionaria.getTelefone());
-        assertFalse(concessionaria.getNome() == " ");
-        assertFalse(concessionaria.getCidade() == " ");
-        assertFalse(concessionaria.getTelefone() == " ");
-        assertFalse(concessionaria.getEmail() == " ");
+        assertFalse(concessionaria.getNome().equals(" "));
+        assertFalse(concessionaria.getCidade().equals(" "));
+        assertFalse(concessionaria.getTelefone().equals(" "));
+        assertFalse(concessionaria.getEmail().equals(" "));
     }
 
     @Test

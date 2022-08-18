@@ -30,7 +30,7 @@ class ModeloRepositoryTest {
         modeloRepository.save(modelo);
         assertNotNull(modelo.getId());
         assertNotNull(modelo.getDescricao());
-        assertFalse(modelo.getDescricao() == " ");
+        assertFalse(modelo.getDescricao().equals(" "));
     }
 
     @Test
