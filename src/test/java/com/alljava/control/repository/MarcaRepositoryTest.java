@@ -35,4 +35,17 @@ class MarcaRepositoryTest {
          marcaRepository.save(marca);
          assertTrue(marca.getDescricao().equals("Fiat"));
      }
+
+     @Test
+    void listarTodasAsMarcasComSucesso(){
+        Marca marca = new Marca();
+        Marca marca1 = new Marca();
+        marca.setDescricao("Chevrolet");
+        marca1.setDescricao("Fiat");
+        marcaRepository.save(marca);
+        marcaRepository.save(marca1);
+        assertTrue(marcaRepository.findAll().size() == 2);
+        assertTrue(marcaRepository.findAll().get(0).getDescricao().equals("Chevrolet"));
+        assertTrue(marcaRepository.findAll().get(1).getDescricao().equals("Fiat"));
+     }
 }

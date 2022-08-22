@@ -53,4 +53,23 @@ class ConcessionariaRepositoryTest {
         assertTrue(concessionaria.getEmail().equals("pecasmendes@gmail.com"));
     }
 
+    @Test
+    void listarTodasAsConcessionariasComSucesso() {
+        Concessionaria concessionaria = new Concessionaria();
+        concessionaria.setNome("AutoPeças");
+        concessionaria.setCidade("São Paulo");
+        concessionaria.setTelefone("986773455");
+        concessionaria.setEmail("autopeças@gmail.com");
+        concessionariaRepository.save(concessionaria);
+        Concessionaria concessionaria1 = new Concessionaria();
+        concessionaria1.setNome("Peças Mendes");
+        concessionaria1.setCidade("Belo Horizonte");
+        concessionaria1.setTelefone("933778996");
+        concessionaria1.setEmail("pecasmendes@gmail.com");
+        concessionariaRepository.save(concessionaria1);
+        assertTrue(concessionariaRepository.findAll().size() == 2);
+        assertTrue(concessionariaRepository.findAll().get(0).getNome().equals("AutoPeças"));
+        assertTrue(concessionariaRepository.findAll().get(1).getNome().equals("Peças Mendes"));
+    }
+
 }

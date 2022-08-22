@@ -51,4 +51,25 @@ class ModeloRepositoryTest {
 
     }
 
+    @Test
+    void listarTodasOsModelosComSucesso(){
+        Modelo modelo = new Modelo();
+        Modelo modelo1 = new Modelo();
+        Marca marca = new Marca();
+        Marca marca1 = new Marca();
+        marca.setDescricao("Chevrolet");
+        marca1.setDescricao("Fiat");
+        marcaRepository.save(marca);
+        marcaRepository.save(marca1);
+        modelo.setDescricao("Onix");
+        modelo1.setDescricao("Fiat Touro");
+        modelo.setMarca(marca);
+        modelo1.setMarca(marca1);
+        modeloRepository.save(modelo);
+        modeloRepository.save(modelo1);
+        assertTrue(modeloRepository.findAll().size() == 2);
+        assertTrue(modeloRepository.findAll().get(0).getDescricao().equals("Onix"));
+        assertTrue(modeloRepository.findAll().get(1).getDescricao().equals("Fiat Touro"));
+    }
+
 }
