@@ -72,4 +72,16 @@ class ConcessionariaRepositoryTest {
         assertTrue(concessionariaRepository.findAll().get(1).getNome().equals("Peças Mendes"));
     }
 
+    @Test
+    void excluirConcessionariaComSucesso() {
+        Concessionaria concessionaria = new Concessionaria();
+        concessionaria.setNome("Peças Mendes");
+        concessionaria.setCidade("Belo Horizonte");
+        concessionaria.setTelefone("933778996");
+        concessionaria.setEmail("pecasmendes@gmail.com");
+        concessionariaRepository.save(concessionaria);
+        concessionariaRepository.delete(concessionaria);
+        assertFalse(concessionariaRepository.findById(1L).isPresent());
+    }
+
 }

@@ -48,4 +48,13 @@ class MarcaRepositoryTest {
         assertTrue(marcaRepository.findAll().get(0).getDescricao().equals("Chevrolet"));
         assertTrue(marcaRepository.findAll().get(1).getDescricao().equals("Fiat"));
      }
+
+     @Test
+    void excluirMarcaComSucesso() {
+        Marca marca = new Marca();
+        marca.setDescricao("Chevrolet");
+        marcaRepository.save(marca);
+        marcaRepository.delete(marca);
+        assertFalse(marcaRepository.findById(1L).isPresent());
+     }
 }

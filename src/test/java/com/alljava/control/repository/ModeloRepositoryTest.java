@@ -72,4 +72,17 @@ class ModeloRepositoryTest {
         assertTrue(modeloRepository.findAll().get(1).getDescricao().equals("Fiat Touro"));
     }
 
+    @Test
+    void excluirModeloComSucesso() {
+        Modelo modelo = new Modelo();
+        Marca marca = new Marca();
+        marca.setDescricao("Chevrolet");
+        marcaRepository.save(marca);
+        modelo.setDescricao("Onix");
+        modelo.setMarca(marca);
+        modeloRepository.save(modelo);
+        modeloRepository.delete(modelo);
+        assertFalse(modeloRepository.findById(1L).isPresent());
+    }
+
 }
