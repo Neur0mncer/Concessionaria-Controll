@@ -16,13 +16,12 @@ class ModeloRepositoryTest {
     ModeloRepository modeloRepository;
     @Autowired
     MarcaRepository marcaRepository;
-    @Autowired
-    ModelMapper modelMapper;
+
+    Modelo modelo = new Modelo();
+    Marca marca = new Marca();
 
     @Test
     void salvarModeloComSucesso() {
-        Modelo modelo = new Modelo();
-        Marca marca = new Marca();
         marca.setDescricao("Chevrolet");
         marcaRepository.save(marca);
         modelo.setDescricao("Onix");
@@ -35,8 +34,6 @@ class ModeloRepositoryTest {
 
     @Test
     void atualizarModeloComSucesso() {
-        Modelo modelo = new Modelo();
-        Marca marca = new Marca();
         marca.setDescricao("Chevrolet");
         marcaRepository.save(marca);
         modelo.setDescricao("Onix");
@@ -53,9 +50,7 @@ class ModeloRepositoryTest {
 
     @Test
     void listarTodasOsModelosComSucesso(){
-        Modelo modelo = new Modelo();
         Modelo modelo1 = new Modelo();
-        Marca marca = new Marca();
         Marca marca1 = new Marca();
         marca.setDescricao("Chevrolet");
         marca1.setDescricao("Fiat");
@@ -74,15 +69,14 @@ class ModeloRepositoryTest {
 
     @Test
     void excluirModeloComSucesso() {
-        Modelo modelo = new Modelo();
-        Marca marca = new Marca();
         marca.setDescricao("Chevrolet");
         marcaRepository.save(marca);
         modelo.setDescricao("Onix");
         modelo.setMarca(marca);
         modeloRepository.save(modelo);
+        assertTrue(modeloRepository.count() == 1);
         modeloRepository.delete(modelo);
-        assertFalse(modeloRepository.findById(1L).isPresent());
+        assertTrue(modeloRepository.count() == 0);
     }
 
 }

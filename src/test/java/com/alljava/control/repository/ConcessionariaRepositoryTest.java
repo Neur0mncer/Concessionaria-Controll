@@ -13,12 +13,11 @@ class ConcessionariaRepositoryTest {
 
     @Autowired
     ConcessionariaRepository concessionariaRepository;
-    @Autowired
-    ModelMapper modelMapper;
+
+    Concessionaria concessionaria = new Concessionaria();
 
     @Test
     void salvarConcessionariaComSucesso() {
-        Concessionaria concessionaria = new Concessionaria();
         concessionaria.setNome("Peças Mendes");
         concessionaria.setCidade("Belo Horizonte");
         concessionaria.setTelefone("933778996");
@@ -36,7 +35,6 @@ class ConcessionariaRepositoryTest {
 
     @Test
     void atualizarConcessionariaComSucesso() {
-        Concessionaria concessionaria = new Concessionaria();
         concessionaria.setNome("AutoPeças");
         concessionaria.setCidade("São Paulo");
         concessionaria.setTelefone("986773455");
@@ -55,7 +53,6 @@ class ConcessionariaRepositoryTest {
 
     @Test
     void listarTodasAsConcessionariasComSucesso() {
-        Concessionaria concessionaria = new Concessionaria();
         concessionaria.setNome("AutoPeças");
         concessionaria.setCidade("São Paulo");
         concessionaria.setTelefone("986773455");
@@ -74,14 +71,14 @@ class ConcessionariaRepositoryTest {
 
     @Test
     void excluirConcessionariaComSucesso() {
-        Concessionaria concessionaria = new Concessionaria();
         concessionaria.setNome("Peças Mendes");
         concessionaria.setCidade("Belo Horizonte");
         concessionaria.setTelefone("933778996");
         concessionaria.setEmail("pecasmendes@gmail.com");
         concessionariaRepository.save(concessionaria);
+        assertTrue(concessionariaRepository.count() == 1);
         concessionariaRepository.delete(concessionaria);
-        assertFalse(concessionariaRepository.findById(1L).isPresent());
+        assertTrue(concessionariaRepository.count() == 0);
     }
 
 }

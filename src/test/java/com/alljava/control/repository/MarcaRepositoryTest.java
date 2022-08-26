@@ -7,19 +7,21 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MarcaRepositoryTest {
+
     @Autowired
     private MarcaRepository marcaRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+
+    Marca marca = new Marca();
 
     @Test
     void salvarMarcaComSucesso() {
-        Marca marca = new Marca();
         marca.setDescricao("Chevrolet");
         marcaRepository.save(marca);
         assertNotNull(marca.getId());
@@ -28,7 +30,6 @@ class MarcaRepositoryTest {
     }
      @Test
     void atualizarMarcaComSucesso(){
-         Marca marca = new Marca();
          marca.setDescricao("Chevrolet");
          marcaRepository.save(marca);
          marca.setDescricao("Fiat");
@@ -38,7 +39,6 @@ class MarcaRepositoryTest {
 
      @Test
     void listarTodasAsMarcasComSucesso(){
-        Marca marca = new Marca();
         Marca marca1 = new Marca();
         marca.setDescricao("Chevrolet");
         marca1.setDescricao("Fiat");
@@ -51,10 +51,10 @@ class MarcaRepositoryTest {
 
      @Test
     void excluirMarcaComSucesso() {
-        Marca marca = new Marca();
         marca.setDescricao("Chevrolet");
         marcaRepository.save(marca);
+        assertTrue(marcaRepository.count() == 1);
         marcaRepository.delete(marca);
-        assertFalse(marcaRepository.findById(1L).isPresent());
+        assertTrue(marcaRepository.count() == 0);
      }
 }
